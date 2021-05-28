@@ -3,3 +3,16 @@
     width: 93%;
     padding: 50px;
   }
+
+  .k-toolbar {
+    display: block
+  }
+
+  .button2 {
+    background-color: transparent;
+    border: transparent;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  

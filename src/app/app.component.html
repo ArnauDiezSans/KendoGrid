@@ -1,12 +1,28 @@
 <div class="center">
-  <kendo-grid [data]="gridData" [height]="600" [pageable]="true" [pageSize]="10" [resizable]="true">
+  <kendo-grid [data]="gridView" [height]="600" [pageable]="true" [skip]="state.skip" [pageSize]="state.take"
+    [resizable]="true" [sortable]="{ mode: 'multiple' }" [sort]="state.sort" (dataStateChange)="dataStateChange($event)"
+    [filterable]="false" [groupable]="true">
+
+
+
+    <ng-template kendoGridToolbarTemplate class="k-toolbarRight">
+      <button class="k-icon k-i-zoom"></button>
+      <kendo-grid-spacer></kendo-grid-spacer>
+      <!--a partir de aqui se coloca a la derecha -->
+      <input type="text" placeholder="Buscar puesto...">
+      <button class="k-icon k-i-zoom button2"></button>
+      <button class="k-icon k-i-table-row-insert-above button2"></button>
+      <button class="k-icon k-i-download button2"></button>
+      <button kendoButton class="k-icon k-i-columns button2"></button>
+    </ng-template>
+
     <kendo-grid-column field="puesto.puestoId" title="Cód." width="100">
     </kendo-grid-column>
     <kendo-grid-column field="puestoIdOficial" title="Código oficial" width="150">
     </kendo-grid-column>
     <kendo-grid-column field="puestoTipo.nombreCompleto" title="Puesto tipo">
     </kendo-grid-column>
-    <kendo-grid-column field="puestoTipo.nombre" title="Denominación" width="80">
+    <kendo-grid-column field="nombre" title="Denominación" width="80">
     </kendo-grid-column>
     <kendo-grid-column field="tipoVinculo.nombre" title="TP" width="80">
     </kendo-grid-column>
@@ -52,6 +68,8 @@
     </kendo-grid-column>
     <kendo-grid-column field="" title="Titulaciones" width="80">
     </kendo-grid-column>
+
+
 
 
     <kendo-grid-column field="Discontinued" title="Discontinued" width="120">
