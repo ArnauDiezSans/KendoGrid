@@ -1,37 +1,54 @@
 <div class="center">
-  <kendo-grid [data]="gridView" [height]="600" [resizable]="true"
-    [pageable]="true" [skip]="skip" [pageSize]="take" (pageChange)="pageChange($event)"
-    [sortable]="{ mode: 'multiple' }" [sort]="sort"  (sortChange)="sortChange($event)"
-    [filterable]="true" 
-    [groupable]="true"
-    (dataStateChange)="dataStateChange($event)">
+  <kendo-grid [data]="gridView" [height]="600" [resizable]="true" [pageable]="true" [skip]="skip" [pageSize]="pageSize"
+    (pageChange)="pageChange($event)" [sortable]="{ mode: 'multiple' }" [sort]="sort" (sortChange)="sortChange($event)"
+    filterable="menu" [filter]="filter" [groupable]="showGroup" (dataStateChange)="dataStateChange($event)"
+    (groupChange)="groupChange($event)" [columnMenu]="{ lock: false , columnChooser: false, filter: {expanded: true}}">
 
+    <!--ng-template kendoGridColumnMenuTemplate let-service="service">
+      <kendo-grid-columnmenu-sort [service]="service">
+      </kendo-grid-columnmenu-sort>
+      <kendo-grid-columnmenu-filter [service]="service">
+      </kendo-grid-columnmenu-filter>
+    </!--ng-template-->
 
+    <kendo-grid-messages [groupPanelEmpty]="'Arrastra una columna a esta barra para agrupar'"></kendo-grid-messages>
 
     <ng-template kendoGridToolbarTemplate class="k-toolbarRight">
-      <button class="k-icon k-i-zoom"></button>
       <kendo-grid-spacer></kendo-grid-spacer>
       <!--a partir de aqui se coloca a la derecha -->
-      <input type="text" placeholder="Buscar puesto...">
-      <button class="k-icon k-i-zoom button2"></button>
-      <button class="k-icon k-i-table-row-insert-above button2"></button>
-      <button class="k-icon k-i-download button2"></button>
-      <button kendoButton class="k-icon k-i-columns button2"></button>
+      <input type="text" *ngIf="shown" placeholder="Buscar puesto..." kendoTextBox
+        (input)="onFilter($event.target.value)">
+      <button class="k-icon k-i-zoom button2" (click)="onShow()"></button>
+      <button class="k-icon k-i-table-row-insert-above button2" (click)="groupShow()"></button>
+      <div kendoGridExcelCommand class="k-bare">
+        <button class="k-icon k-i-download button2"></button>
+      </div>
+      <kendo-grid-column-chooser matTooltip="Mostrar columnas"></kendo-grid-column-chooser>
     </ng-template>
 
-    <kendo-grid-column field="puesto.puestoId" title="Cód." width="100">
+    <kendo-grid-column field="puestoId" title="Código" width="95">
     </kendo-grid-column>
-    <kendo-grid-column field="puestoIdOficial" title="Código oficial" width="150">
+    <kendo-grid-column field="puestoIdOficial" title="Código oficial" width="135">
     </kendo-grid-column>
     <kendo-grid-column field="puestoTipo.nombreCompleto" title="Puesto tipo">
     </kendo-grid-column>
-    <kendo-grid-column field="nombre" title="Denominación" width="80">
+    <kendo-grid-column field="nombre" title="Denominación" width="140">
+    </kendo-grid-column>
+    <kendo-grid-column field="fechaVigenciaInicio" title="Inicio Fecha Vigencia" [width]="400" filter="date">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        {{dataItem.fechaVigenciaInicio | date}}
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column type="checkbox" field="disponibilidadPlena" title="Disponibilidad" [width]="80" filter="boolean">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <input type="checkbox" [checked]="dataItem.disponibilidadPlena" disabled />
+      </ng-template>
     </kendo-grid-column>
     <kendo-grid-column field="tipoVinculo.nombre" title="TP" width="80">
     </kendo-grid-column>
-    <kendo-grid-column field="catalogo.nombre" title="Catálogo" width="80">
+    <kendo-grid-column field="catalogo.nombre" title="Catálogo" width="120">
     </kendo-grid-column>
-    <kendo-grid-column field="adscripción.nombre" title="Adscripción administración" width="80">
+    <kendo-grid-column field="adscripción.nombre" title="Adscripción administración" width="140">
     </kendo-grid-column>
     <kendo-grid-column field="grupo1Id" title="G1" width="80">
     </kendo-grid-column>
@@ -80,5 +97,6 @@
         <input type="checkbox" [checked]="dataItem.Discontinued" disabled />
       </ng-template>
     </kendo-grid-column>
+    <kendo-grid-excel fileName="Puestos.xlsx"></kendo-grid-excel>
   </kendo-grid>
 </div>

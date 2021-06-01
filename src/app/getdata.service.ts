@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs'
-import { Puestos } from './puestos';
+import { Puesto } from './puestos';
+import { map } from 'rxjs/operators';
 
-const localUrl = "./puestos.json";
+const localUrl = "../assets/data/puestos.json";
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,17 @@ export class GetdataService {
     })
   }
 
-  getData(): Observable<Puestos> {
-    return this.http.get<Puestos>(localUrl)
+  getData(): Observable<Puesto[]> {
+    return this.http.get<Puesto[]>(localUrl).pipe(
+      map((data: Puesto[]) =>
+        data.map(
+          (item: Puesto) =>
+            new Puesto(item.puestoId, item.puestoIdOficial, item.tipoVinculoNombre, item.puestoTipoNombre,
+              item.catalogoNombre, item.adscripcionNombre, item.grupo1Id, item.grupo2Id, item.escala,
+              item.disponibilidadPlena, new Date(item.fechaVigenciaInicio))
+        )
+      )
+    );
   }
 }
 
