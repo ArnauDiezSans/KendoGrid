@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { State, process, SortDescriptor, GroupDescriptor } from '@progress/kendo-data-query';
 import { GetdataService } from './getdata.service';
@@ -39,9 +40,12 @@ export class AppComponent implements OnInit {
   public take = 0;
   public filter: {
     logic: 'and',
+    // tslint:disable-next-line: comment-format
     filters: [] //{ field: "puestoId", operator: "contains", value: "0001" }
   }
   public groups: GroupDescriptor[] = [{ field: 'Category.CategoryName' }];
+  public formGroup: FormGroup;
+  private editedRowIndex: number;
 
   constructor(public getDataService: GetdataService) {
     this.loadPuestos();
@@ -84,6 +88,76 @@ export class AppComponent implements OnInit {
         }
     });
 }
+
+public addHandler({ sender }) {
+  this.closeEditor(sender);
+
+  this.formGroup = new FormGroup({
+    puestoId: new FormControl(),
+    puestoIdOficial: new FormControl(),
+    tipoVinculoNombre: new FormControl(),
+    puestoTipoNombre: new FormControl(),
+    catalogoNombre: new FormControl(),
+    adscripcionNombre: new FormControl(),
+    grupo1Id: new FormControl(),
+    grupo2Id: new FormControl(),
+    escalaNombre: new FormControl(),
+    disponibilidadPlena: new FormControl(),
+    fechaVigenciaInicio: new FormControl(),
+  });
+
+  sender.addRow(this.formGroup);
+}
+
+public editHandler({ sender, rowIndex, dataItem }) {
+  this.closeEditor(sender);
+
+  this.formGroup = new FormGroup({
+    id: new FormControl(dataItem.id),
+    puestoId: new FormControl(dataItem.puestoId),
+    puestoIdOficial: new FormControl(dataItem.puestoIdOficial),
+    tipoVinculoNombre: new FormControl(dataItem.tipoVinculoNombre),
+    puestoTipoNombre: new FormControl(dataItem.puestoTipoNombre),
+    catalogoNombre: new FormControl(dataItem.catalogoNombre),
+    adscripcionNombre: new FormControl(dataItem.adscripcionNombre),
+    grupo1Id: new FormControl(dataItem.grupo1Id),
+    grupo2Id: new FormControl(dataItem.grupo2Id),
+    escalaNombre: new FormControl(dataItem.escalaNombre),
+    disponibilidadPlena: new FormControl(dataItem.disponibilidadPlena),
+    fechaVigenciaInicio: new FormControl(dataItem.fechaVigenciaInicio),
+  });
+
+  this.editedRowIndex = rowIndex;
+  sender.editRow(rowIndex, this.formGroup);
+}
+
+public saveHandler ({ sender, rowIndex, formGroup, isNew}) {
+  const puesto: Puesto = formGroup.value;
+
+  if (isNew) this.getDataService.postData(puesto).subscribe();
+  else this.getDataService.putData(puesto.id, puesto).subscribe();
+
+  sender.closeRow(rowIndex);
+  this.loadPuestos();
+}
+
+public removeHandler ({ dataItem }){
+  this.getDataService.removeData(dataItem).subscribe();
+  this.loadPuestos();
+}
+
+private closeEditor(grid, rowIndex = this.editedRowIndex) {
+  grid.closeRow(rowIndex);
+  this.editedRowIndex = undefined;
+  this.formGroup = undefined;
+}
+
+public cancelHandler ({ sender, rowIndex }) {
+  sender.closeRow(rowIndex);
+}
+
+
+
 
   private loadPuestos(): void {
     this.getDataService.getData().subscribe((data: Puesto []) => {
@@ -128,9 +202,7 @@ export class AppComponent implements OnInit {
     //this.loadPuestos();
   }
 
-  //public exportToExcel(grid: GridComponent): void {
-  //  grid.saveAsExcel();
-  //}
+
   
 
 

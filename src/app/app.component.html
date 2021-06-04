@@ -2,14 +2,10 @@
   <kendo-grid [data]="gridView" [height]="600" [resizable]="true" [pageable]="true" [skip]="skip" [pageSize]="pageSize"
     (pageChange)="pageChange($event)" [sortable]="{ mode: 'multiple' }" [sort]="sort" (sortChange)="sortChange($event)"
     filterable="menu" [filter]="filter" [groupable]="showGroup" (dataStateChange)="dataStateChange($event)"
-    (groupChange)="groupChange($event)" [columnMenu]="{ lock: false , columnChooser: false, filter: {expanded: true}}">
+    (groupChange)="groupChange($event)" [columnMenu]="{ lock: false , columnChooser: false, filter: {expanded: true}}"
+    (add)="addHandler($event)" (edit)="editHandler($event)" (save)="saveHandler($event)"
+    (remove)="removeHandler($event)" (cancel)="cancelHandler($event)">
 
-    <!--ng-template kendoGridColumnMenuTemplate let-service="service">
-      <kendo-grid-columnmenu-sort [service]="service">
-      </kendo-grid-columnmenu-sort>
-      <kendo-grid-columnmenu-filter [service]="service">
-      </kendo-grid-columnmenu-filter>
-    </!--ng-template-->
 
     <kendo-grid-messages [groupPanelEmpty]="'Arrastra una columna a esta barra para agrupar'"></kendo-grid-messages>
 
@@ -36,6 +32,10 @@
     </kendo-grid-column>
 
     <ng-template kendoGridToolbarTemplate class="k-toolbarRight">
+      <div kendoGridAddCommand class="k-icon k-i-plus-circle">
+        <span class="k-icon k-i-plus-circle"
+          matTooltip="Añadir nuevo puesto"></span>
+      </div>
       <kendo-grid-spacer></kendo-grid-spacer>
       <!--a partir de aqui se coloca a la derecha -->
       <input type="text" *ngIf="shown" placeholder="Buscar puesto..." kendoTextBox
@@ -56,19 +56,23 @@
     </kendo-grid-column>
     <kendo-grid-column field="puestoTipo.nombreCompleto" title="Puesto tipo" media="md">
     </kendo-grid-column>
-    <kendo-grid-column field="nombre" title="Denominación" width="140" media="md">
+    <kendo-grid-column field="puestoTipoNombre" title="Denominación" width="140" media="md">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        {{ dataItem.puestoTipoNombre }}
+      </ng-template>
     </kendo-grid-column>
     <kendo-grid-column field="fechaVigenciaInicio" title="Inicio Fecha Vigencia" [width]="400" filter="date" media="md">
       <ng-template kendoGridCellTemplate let-dataItem>
         {{dataItem.fechaVigenciaInicio | date}}
       </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column type="checkbox" field="disponibilidadPlena" title="Disponibilidad" [width]="80" filter="boolean" media="md">
+    <kendo-grid-column type="checkbox" field="disponibilidadPlena" title="Disponibilidad" [width]="80" filter="boolean"
+      media="md">
       <ng-template kendoGridCellTemplate let-dataItem>
         <input type="checkbox" [checked]="dataItem.disponibilidadPlena" disabled />
       </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column field="tipoVinculo.nombre" title="TP" width="80"media="md">
+    <kendo-grid-column field="tipoVinculo.nombre" title="TP" width="80" media="md">
     </kendo-grid-column>
     <kendo-grid-column field="catalogo.nombre" title="Catálogo" width="120" media="md">
     </kendo-grid-column>
@@ -116,11 +120,23 @@
 
 
 
-    <kendo-grid-column field="Discontinued" title="Discontinued" width="120"  media="md">
+    <kendo-grid-column field="Discontinued" title="Discontinued" width="120" media="md">
       <ng-template kendoGridCellTemplate let-dataItem>
         <input type="checkbox" [checked]="dataItem.Discontinued" disabled />
       </ng-template>
     </kendo-grid-column>
     <kendo-grid-excel fileName="Puestos.xlsx"></kendo-grid-excel>
+    <kendo-grid-command-column title="Comandos" [width]="220">
+      <ng-template kendoGridCellTemplate let-isNew="isNew">
+        <button kendoGridEditCommand [primary]="true">Edit</button>
+        <button kendoGridRemoveCommand>Remove</button>
+        <button kendoGridSaveCommand [disabled]="formGroup?.invalid">
+          {{ isNew ? "Add" : "Update" }}
+        </button>
+        <button kendoGridCancelCommand>
+          {{ isNew ? "Discard changes" : "Cancel" }}
+        </button>
+      </ng-template>
+    </kendo-grid-command-column>
   </kendo-grid>
 </div>

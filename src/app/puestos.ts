@@ -1,6 +1,7 @@
 export class Puesto {
 
 constructor(
+    public id: number,
     public puestoId: string,
     public puestoIdOficial: string,
     public tipoVinculoNombre: string,

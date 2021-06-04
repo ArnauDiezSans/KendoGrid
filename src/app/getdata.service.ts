@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 import { Puesto } from './puestos';
 import { map } from 'rxjs/operators';
 
-const localUrl = "../assets/data/puestos.json";
+const localUrl = "http://localhost:3000/posts";
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +25,28 @@ export class GetdataService {
       map((data: Puesto[]) =>
         data.map(
           (item: Puesto) =>
-            new Puesto(item.puestoId, item.puestoIdOficial, item.tipoVinculoNombre, item.puestoTipoNombre,
+            new Puesto(item.id, item.puestoId, item.puestoIdOficial, item.tipoVinculoNombre, item.puestoTipoNombre,
               item.catalogoNombre, item.adscripcionNombre, item.grupo1Id, item.grupo2Id, item.escala,
               item.disponibilidadPlena, new Date(item.fechaVigenciaInicio))
         )
       )
     );
   }
+
+  postData(item: Puesto): Observable<Puesto> {
+    return this.http.post<Puesto>(localUrl, item);
+  }
+
+  putData(id: number|string, item: Puesto): Observable<Puesto> {
+    const url = `${localUrl}/${id}`
+    return this.http.put<Puesto>(url, item);
+  }
+
+  removeData(item: Puesto): Observable<Puesto> {
+    const url = `${localUrl}/${item.id}`
+    return this.http.delete<Puesto>(url);
+  }
+
 }
 
 
