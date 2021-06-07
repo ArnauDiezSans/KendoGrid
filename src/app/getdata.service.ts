@@ -24,8 +24,8 @@ export class GetdataService {
     return this.http.get<Puesto[]>(localUrl).pipe(
       map((data: Puesto[]) =>
         data.map(
-          (item: Puesto) =>
-            new Puesto(item.id, item.puestoId, item.puestoIdOficial, item.tipoVinculoNombre, item.puestoTipoNombre,
+          (item: any) =>
+            new Puesto(item.id, item.puestoId, item.puestoIdOficial, item.tipoVinculo, item.nombre,
               item.catalogoNombre, item.adscripcionNombre, item.grupo1Id, item.grupo2Id, item.escala,
               item.disponibilidadPlena, new Date(item.fechaVigenciaInicio))
         )

@@ -95,7 +95,7 @@ public addHandler({ sender }) {
   this.formGroup = new FormGroup({
     puestoId: new FormControl(),
     puestoIdOficial: new FormControl(),
-    tipoVinculoNombre: new FormControl(),
+    tipoVinculo: new FormControl(),
     puestoTipoNombre: new FormControl(),
     catalogoNombre: new FormControl(),
     adscripcionNombre: new FormControl(),
@@ -116,7 +116,7 @@ public editHandler({ sender, rowIndex, dataItem }) {
     id: new FormControl(dataItem.id),
     puestoId: new FormControl(dataItem.puestoId),
     puestoIdOficial: new FormControl(dataItem.puestoIdOficial),
-    tipoVinculoNombre: new FormControl(dataItem.tipoVinculoNombre),
+    tipoVinculoNombre: new FormControl(dataItem.tipoVinculo),
     puestoTipoNombre: new FormControl(dataItem.puestoTipoNombre),
     catalogoNombre: new FormControl(dataItem.catalogoNombre),
     adscripcionNombre: new FormControl(dataItem.adscripcionNombre),
