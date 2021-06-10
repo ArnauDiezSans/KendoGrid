@@ -79,20 +79,17 @@
         {{dataItem.fechaVigenciaInicio | date}}
       </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column type="checkbox" field="disponibilidadPlena" title="Disponibilidad" [width]="80" filter="boolean"
+    <kendo-grid-column type="checkbox" field="disponibilidadPlena" title="Disponibilidad" [width]="80" filter="boolean" editor="boolean"
       media="md">
       <ng-template kendoGridCellTemplate let-dataItem>
         <input type="checkbox" [checked]="dataItem.disponibilidadPlena" disabled />
       </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column field="tipoVinculo.nombre" title="TP" width="80" media="md">
-      <ng-template kendoGridCellTemplate let-dataItem>
+    <kendo-grid-column field="tipoVinculo.nombre" title="TP" width="120" media="md">
+      <!-- <ng-template kendoGridCellTemplate let-dataItem>
         {{ dataItem.tipoVinculo?.nombre }}
-      </ng-template>
-    </kendo-grid-column>
-    <kendo-grid-column field="catalogo.nombre" title="Catálogo" width="120" media="md">
-    </kendo-grid-column>
-    <kendo-grid-column field="adscripción.nombre" title="Adscripción administración" width="140" media="md">
+      </ng-template> -->
+
     </kendo-grid-column>
     <kendo-grid-column field="grupo1Id" title="G1" width="80" media="md">
     </kendo-grid-column>

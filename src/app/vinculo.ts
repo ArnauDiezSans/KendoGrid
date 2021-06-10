@@ -2,14 +2,6 @@
 
 export class Vinculo {
 
-   
+        public nombre: string
 
-    constructor(
-        public nombre: string,
-
-    ){
-    
-    
-    
-    }
     }

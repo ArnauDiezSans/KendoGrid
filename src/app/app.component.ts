@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
   public groups: GroupDescriptor[] = [{ field: 'Category.CategoryName' }];
   public formGroup: FormGroup;
   private editedRowIndex: number;
+  public listItems: Array<string> = ['Baseball', 'Basketball', 'Cricket', 'Field Hockey', 'Football', 'Table Tennis', 'Tennis', 'Volleyball'];
 
   constructor(public getDataService: GetdataService) {
     this.loadPuestos();
@@ -56,111 +57,110 @@ export class AppComponent implements OnInit {
 
   public onFilter(inputValue: string): void {
     this.gridView = process(this.puestos, {
-        filter: {
-            logic: "or",
-            filters: [
-                {
-                    field: 'puestoId',
-                    operator: 'contains',
-                    value: inputValue
-                },
-                {
-                    field: 'nombre',
-                    operator: 'contains',
-                    value: inputValue
-                },
-                {
-                    field: 'tipoVinculo.nombre',
-                    operator: 'contains',
-                    value: inputValue
-                },
-                {
-                    field: 'catalogo.nombre',
-                    operator: 'contains',
-                    value: inputValue
-                },
-                {
-                    field: 'cuerpo.nombre',
-                    operator: 'contains',
-                    value: inputValue
-                }
-            ],
-        }
+      filter: {
+        logic: "or",
+        filters: [
+          {
+            field: 'puestoId',
+            operator: 'contains',
+            value: inputValue
+          },
+          {
+            field: 'nombre',
+            operator: 'contains',
+            value: inputValue
+          },
+          {
+            field: 'tipoVinculo.nombre',
+            operator: 'contains',
+            value: inputValue
+          },
+          {
+            field: 'catalogo.nombre',
+            operator: 'contains',
+            value: inputValue
+          },
+          {
+            field: 'cuerpo.nombre',
+            operator: 'contains',
+            value: inputValue
+          }
+        ],
+      }
     });
-}
+  }
 
-public addHandler({ sender }) {
-  this.closeEditor(sender);
+  public addHandler({ sender }) {
+    this.closeEditor(sender);
 
-  this.formGroup = new FormGroup({
-    puestoId: new FormControl(),
-    puestoIdOficial: new FormControl(),
-    tipoVinculo: new FormControl(),
-    puestoTipoNombre: new FormControl(),
-    catalogoNombre: new FormControl(),
-    adscripcionNombre: new FormControl(),
-    grupo1Id: new FormControl(),
-    grupo2Id: new FormControl(),
-    escalaNombre: new FormControl(),
-    disponibilidadPlena: new FormControl(),
-    fechaVigenciaInicio: new FormControl(),
-  });
+    this.formGroup = new FormGroup({
+      puestoId: new FormControl(),
+      puestoIdOficial: new FormControl(),
+      tipoVinculo: new FormGroup({nombre: new FormControl()}),
+      puestoTipoNombre: new FormControl(),
+      catalogoNombre: new FormControl(),
+      adscripcionNombre: new FormControl(),
+      grupo1Id: new FormControl(),
+      grupo2Id: new FormControl(),
+      escalaNombre: new FormControl(),
+      disponibilidadPlena: new FormControl(),
+      fechaVigenciaInicio: new FormControl(),
+    });
 
-  sender.addRow(this.formGroup);
-}
+    sender.addRow(this.formGroup);
+  }
 
-public editHandler({ sender, rowIndex, dataItem }) {
-  this.closeEditor(sender);
+  public editHandler({ sender, rowIndex, dataItem }) {
+    this.closeEditor(sender);
 
-  this.formGroup = new FormGroup({
-    id: new FormControl(dataItem.id),
-    puestoId: new FormControl(dataItem.puestoId),
-    puestoIdOficial: new FormControl(dataItem.puestoIdOficial),
-    tipoVinculoNombre: new FormControl(dataItem.tipoVinculo),
-    puestoTipoNombre: new FormControl(dataItem.puestoTipoNombre),
-    catalogoNombre: new FormControl(dataItem.catalogoNombre),
-    adscripcionNombre: new FormControl(dataItem.adscripcionNombre),
-    grupo1Id: new FormControl(dataItem.grupo1Id),
-    grupo2Id: new FormControl(dataItem.grupo2Id),
-    escalaNombre: new FormControl(dataItem.escalaNombre),
-    disponibilidadPlena: new FormControl(dataItem.disponibilidadPlena),
-    fechaVigenciaInicio: new FormControl(dataItem.fechaVigenciaInicio),
-  });
+    this.formGroup = new FormGroup({
+      id: new FormControl(dataItem.id),
+      puestoId: new FormControl(dataItem.puestoId),
+      puestoIdOficial: new FormControl(dataItem.puestoIdOficial),
+      tipoVinculo: new FormGroup({nombre: new FormControl(dataItem.nombre)}),
+      nombre: new FormControl(dataItem.nombre),
+      catalogoNombre: new FormControl(dataItem.catalogoNombre),
+      adscripcionNombre: new FormControl(dataItem.adscripcionNombre),
+      grupo1Id: new FormControl(dataItem.grupo1Id),
+      grupo2Id: new FormControl(dataItem.grupo2Id),
+      escalaNombre: new FormControl(dataItem.escalaNombre),
+      disponibilidadPlena: new FormControl(dataItem.disponibilidadPlena),
+      fechaVigenciaInicio: new FormControl(dataItem.fechaVigenciaInicio),
+    });
 
-  this.editedRowIndex = rowIndex;
-  sender.editRow(rowIndex, this.formGroup);
-}
+    this.editedRowIndex = rowIndex;
+    sender.editRow(rowIndex, this.formGroup);
+  }
 
-public saveHandler ({ sender, rowIndex, formGroup, isNew}) {
-  const puesto: Puesto = formGroup.value;
+  public saveHandler({ sender, rowIndex, formGroup, isNew }) {
+    const puesto: Puesto = formGroup.value;
 
-  if (isNew) this.getDataService.postData(puesto).subscribe();
-  else this.getDataService.putData(puesto.id, puesto).subscribe();
+    if (isNew) this.getDataService.postData(puesto).subscribe();
+    else this.getDataService.putData(puesto.id, puesto).subscribe();
+    this.loadPuestos();
+    sender.closeRow(rowIndex);
+  }
 
-  sender.closeRow(rowIndex);
-  this.loadPuestos();
-}
+  public removeHandler({ dataItem }) {
+    this.getDataService.removeData(dataItem).subscribe();
+    this.loadPuestos();
+  }
 
-public removeHandler ({ dataItem }){
-  this.getDataService.removeData(dataItem).subscribe();
-  this.loadPuestos();
-}
+  private closeEditor(grid, rowIndex = this.editedRowIndex) {
+    grid.closeRow(rowIndex);
+    this.editedRowIndex = undefined;
+    this.formGroup = undefined;
+  }
 
-private closeEditor(grid, rowIndex = this.editedRowIndex) {
-  grid.closeRow(rowIndex);
-  this.editedRowIndex = undefined;
-  this.formGroup = undefined;
-}
-
-public cancelHandler ({ sender, rowIndex }) {
-  sender.closeRow(rowIndex);
-}
+  public cancelHandler({ sender, rowIndex }) {
+    sender.closeRow(rowIndex);
+  }
 
 
 
 
   private loadPuestos(): void {
-    this.getDataService.getData().subscribe((data: Puesto []) => {
+    this.getDataService.getData().subscribe((data: Puesto[]) => {
       this.puestos = data;
       this.gridView = process(this.puestos, this.gridCurrentState)
     });
@@ -203,7 +203,7 @@ public cancelHandler ({ sender, rowIndex }) {
   }
 
 
-  
+
 
 
 
