@@ -4,7 +4,7 @@ import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent } 
 import { State, process, SortDescriptor, GroupDescriptor } from '@progress/kendo-data-query';
 import { GetdataService } from './getdata.service';
 import { Puesto } from './puestos';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 const gridInitialState: State = {
   skip: 0,
