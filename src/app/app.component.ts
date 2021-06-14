@@ -4,6 +4,7 @@ import { DataStateChangeEvent, GridComponent, GridDataResult, PageChangeEvent } 
 import { State, process, SortDescriptor, GroupDescriptor } from '@progress/kendo-data-query';
 import { GetdataService } from './getdata.service';
 import { Puesto } from './puestos';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 const gridInitialState: State = {
   skip: 0,
@@ -20,6 +21,8 @@ const gridInitialState: State = {
   },
   group: []
 };
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -46,7 +49,6 @@ export class AppComponent implements OnInit {
   public groups: GroupDescriptor[] = [{ field: 'Category.CategoryName' }];
   public formGroup: FormGroup;
   private editedRowIndex: number;
-  public listItems: Array<string> = ['Baseball', 'Basketball', 'Cricket', 'Field Hockey', 'Football', 'Table Tennis', 'Tennis', 'Volleyball'];
 
   constructor(public getDataService: GetdataService) {
     this.loadPuestos();
@@ -54,6 +56,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.loadPuestos();
   }
+  
 
   public onFilter(inputValue: string): void {
     this.gridView = process(this.puestos, {

@@ -6,9 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ExcelModule } from '@progress/kendo-angular-grid';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatMenuModule } from '@angular/material/menu';
+
 
 @NgModule({
-  imports: [BrowserModule, BrowserAnimationsModule, FormsModule, GridModule, HttpClientModule, ExcelModule],
+  imports: [BrowserModule, BrowserAnimationsModule, FormsModule, GridModule, HttpClientModule, ExcelModule, FlexLayoutModule, MatMenuModule],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
 })

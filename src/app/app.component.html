@@ -12,6 +12,7 @@
     <kendo-grid-column media="xs" title="Puestos">
       <ng-template kendoGridCellTemplate let-dataItem="dataItem">
         <!-- template for mobile -->
+
         <h4 [class.discontinued]="dataItem.Discontinued">
           {{ dataItem.puestoId }}
         </h4>
@@ -28,6 +29,25 @@
           <dt>Disponibilidad</dt>
           <dd><input type="checkbox" [checked]="dataItem.disponibilidadPlena" disabled /></dd>
         </dl>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voice mail</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon>
+            <span>Disable alerts</span>
+          </button>
+        </mat-menu>
+
       </ng-template>
     </kendo-grid-column>
 
@@ -47,7 +67,7 @@
       <kendo-grid-column-chooser matTooltip="Mostrar columnas"></kendo-grid-column-chooser>
     </ng-template>
 
-    <kendo-grid-command-column title="" [width]="105">
+    <kendo-grid-command-column title="" [width]="105" media="md">
       <ng-template kendoGridCellTemplate let-isNew="isNew">
         <button kendoGridEditCommand>
           <span class="k-icon k-i-table-properties"></span>
@@ -74,10 +94,11 @@
     </kendo-grid-column>
     <kendo-grid-column field="nombre" title="Denominación" width="140" media="md">
     </kendo-grid-column>
-    <kendo-grid-column field="fechaVigenciaInicio" title="Inicio Fecha Vigencia" [width]="400" filter="date" media="md">
+    <kendo-grid-column field="fechaVigenciaInicio" title="Inicio Fecha Vigencia" [width]="400" filter="date" media="md" editor="date">
       <ng-template kendoGridCellTemplate let-dataItem>
         {{dataItem.fechaVigenciaInicio | date}}
       </ng-template>
+      
     </kendo-grid-column>
     <kendo-grid-column type="checkbox" field="disponibilidadPlena" title="Disponibilidad" [width]="80" filter="boolean" editor="boolean"
       media="md">
