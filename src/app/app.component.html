@@ -74,7 +74,7 @@
     </kendo-grid-column>
     <kendo-grid-column field="nombre" title="Denominación" width="140" media="md">
     </kendo-grid-column>
-    <kendo-grid-column field="fechaVigenciaInicio" title="Inicio Fecha Vigencia" [width]="400" filter="date" media="md">
+    <kendo-grid-column field="fechaVigenciaInicio" title="Inicio Fecha Vigencia" [width]="400" filter="date" editor="date" media="md">
       <ng-template kendoGridCellTemplate let-dataItem>
         {{dataItem.fechaVigenciaInicio | date}}
       </ng-template>
