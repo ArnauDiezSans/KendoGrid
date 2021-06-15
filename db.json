@@ -63560,133 +63560,12 @@
       "state": 0
     },
     {
-      "adscripcion": null,
-      "camino": "00001>00144",
-      "catalogo": null,
-      "clase": null,
-      "complementoDestino": null,
-      "complementoDestinoId": null,
-      "complementoDestinoImporte": null,
-      "complementoEspecifico": null,
-      "complementoEspecificoId": null,
-      "complementoEspecificoImporte": null,
-      "cuerpo": null,
-      "disponibilidadPlena": false,
-      "dotaciones": 1,
-      "ocupantes": 0,
-      "vacantes": 1,
-      "dotado": false,
-      "empresaId": "00010",
-      "escala": null,
-      "fechaAlta": null,
-      "fechaVigenciaFin": null,
-      "fechaVigenciaInicio": "2019-01-01T00:00:00+01:00",
-      "formaProvision": null,
-      "grupo1Id": null,
-      "grupo1Importe": 0,
-      "grupo2Id": null,
-      "id": 15998,
-      "idUnidadOrganizativa": 19951,
-      "motivo": null,
-      "nombre": "ADJUNTO AL DIRECTOR GENERAL",
-      "nombreCompleto": "ADJUNTO AL DIRECTOR GENERAL [00001]",
-      "personaDeConfianza": false,
-      "puesto": {
-        "id": 12205,
-        "puestoId": "00001",
-        "nombre": "ADJUNTO AL DIRECTOR GENERAL",
-        "empresaId": "00010",
-        "fechaAlta": "2019-01-01T00:00:00+01:00",
-        "fechaBaja": null,
-        "rowVersion": "8D8FD56AFAD2520",
-        "unidadesOrganizativas": [
-          {
-            "esJefePrincipal": false,
-            "esPuesto": true,
-            "fechaCreacion": "2019-01-01T00:00:00+01:00",
-            "id": 19951,
-            "nombre": "ADJUNTO AL DIRECTOR GENERAL",
-            "profundidad": 0,
-            "rowVersion": "8D8E3C94EEE58E0",
-            "tipoJefe": "Desconocida",
-            "unidadOrganizativaId": "00144",
-            "empresaId": "00010",
-            "state": 0
-          }
-        ],
-        "motivoAmortizacion": null
-      },
-      "puestoTipo": {
-        "id": 531,
-        "puestoTipoId": "88898",
-        "nombre": "Prueba",
-        "rowVersion": "8D8F91F4F2D5AC0"
-      },
-      "puestoId": "00001",
-      "puestoIdOficial": null,
-      "puestoTipoId": "88898",
-      "reservadoNacionales": false,
-      "retribucion": null,
-      "retribucionAnualGrupo": null,
-      "retribucionExtraDiciembreGrupo": null,
-      "retribucionExtraJunioGrupo": null,
-      "rowVersion": "8D8FA852530BA70",
-      "rutaUnidadOrganizativa": [
-        "Ajuntament",
-        "ADJUNTO AL DIRECTOR GENERAL"
-      ],
-      "singularizado": false,
-      "subEscala": null,
-      "tipoVinculo": null,
-      "unidadOrganizativaId": "00144",
-      "versionId": 1,
-      "unidadOrganizativa": {
-        "camino": "00001>00144",
-        "esJefePrincipal": false,
-        "esPuesto": true,
-        "fechaCreacion": "2019-01-01T00:00:00+01:00",
-        "id": 19951,
-        "idUnidadOrganizativaPadre": 18744,
-        "nombre": "ADJUNTO AL DIRECTOR GENERAL",
-        "organigrama": {
-          "id": 420,
-          "nombre": "Grupo Castilla (No tocar)",
-          "organigramaId": "99113",
-          "rowVersion": "8D8B7B99D297DA0",
-          "uniqueIdentifier": "8b40372f-4e7c-45a8-960d-2d0242b94cdd"
-        },
-        "profundidad": 1,
-        "recursoIcono": "ZIC_Seccion_L",
-        "rowVersion": "8D8E3C94EEE58E0",
-        "rutaUnidadOrganizativa": [
-          "Ajuntament",
-          "ADJUNTO AL DIRECTOR GENERAL"
-        ],
-        "tipoJefe": "Desconocida",
-        "unidadOrganizativaId": "00144",
-        "unidadOrganizativaPadreId": "00001",
-        "empresaId": "00010",
-        "categoria": {
-          "id": 4,
-          "categoriaNivel": "002",
-          "nombre": "Puesto E",
-          "esPuesto": true,
-          "recursoIcono": "ZIC_Seccion_L",
-          "nDigitos": 8,
-          "sinFormato": false,
-          "tipoPrint": "1",
-          "rowVersion": "8D9160BF2883560"
-        },
-        "state": 0
-      },
-      "customFieldValue": [],
-      "state": 0
-    },
-    {
       "id": 16016,
       "puestoId": "00002",
-      "puestoIdOficial": null,
-      "tipoVinculoNombre": null,
+      "puestoIdOficial": "blablablaasdasdas",
+      "tipoVinculo": {
+        "nombre": "aaaaab"
+      },
       "nombre": "aaaaab",
       "catalogoNombre": null,
       "adscripcionNombre": null,
@@ -63694,7 +63573,7 @@
       "grupo2Id": "A2",
       "escalaNombre": null,
       "disponibilidadPlena": true,
-      "fechaVigenciaInicio": "2021-03-22T23:00:00.000Z"
+      "fechaVigenciaInicio": "2021-03-23T23:00:00.000Z"
     },
     {
       "id": 15991,

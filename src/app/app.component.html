@@ -12,45 +12,82 @@
     <kendo-grid-column media="xs" title="Puestos">
       <ng-template kendoGridCellTemplate let-dataItem="dataItem">
         <!-- template for mobile -->
+        <div fxLayout="row">
+          <div fxLayout="column" fxLayoutAlign="start" fxFlex="90">
+            <h4 [class.discontinued]="dataItem.Discontinued">
+              {{ dataItem.puestoId }}
+            </h4>
+            <dl>
+              <dt>Código oficial</dt>
+              <dd>{{ dataItem.puestoIdOficial }}</dd>
 
-        <h4 [class.discontinued]="dataItem.Discontinued">
-          {{ dataItem.puestoId }}
-        </h4>
-        <dl>
-          <dt>Código oficial</dt>
-          <dd>{{ dataItem.puestoIdOficial }}</dd>
+              <dt>Denominación</dt>
+              <dd>{{ dataItem.puestoTipo?.nombre }}</dd>
 
-          <dt>Denominación</dt>
-          <dd>{{ dataItem.puestoTipo?.nombre }}</dd>
+              <dt>Inicio Fecha Vigencia</dt>
+              <dd>{{ dataItem.fechaVigenciaInicio | date }}</dd>
 
-          <dt>Inicio Fecha Vigencia</dt>
-          <dd>{{ dataItem.fechaVigenciaInicio | date }}</dd>
+              <dt>Disponibilidad</dt>
+              <dd><input type="checkbox" [checked]="dataItem.disponibilidadPlena" disabled /></dd>
+            </dl>
+          </div>
 
-          <dt>Disponibilidad</dt>
-          <dd><input type="checkbox" [checked]="dataItem.disponibilidadPlena" disabled /></dd>
-        </dl>
 
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
-          </button>
-          <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voice mail</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon>
-            <span>Disable alerts</span>
-          </button>
-        </mat-menu>
+          <div fxLayout="column" fxLayoutAlign="start end">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="k-icon k-i-more-horizontal button2"></button>
+            <mat-menu #menu="matMenu" #aboveMenu="matMenu" fxLayoutAlign="start end">
+              <button mat-menu-item kendoGridEditCommand><span
+                  class="k-icon k-i-edit k-i-pencil"></span><span>Editar</span></button>
+              <button mat-menu-item kendoGridRemoveCommand><span
+                  class="k-icon k-i-delete k-i-trash"></span><span>Borrar</span></button>
+            </mat-menu>
+          </div>
+        </div>
 
       </ng-template>
+      <ng-template kendoGridEditTemplate let-isNew="isNew" let-dataItem="dataItem" let-formGroup="formGroup">
+        <mat-card>
+          <mat-card-content>
+            <div fxLayout="row">
+              <button kendoGridSaveCommand [disabled]="formGroup?.invalid">
+                <span *ngIf="isNew" class="k-icon k-i-edit-tools"></span>
+                <span *ngIf="!isNew" class="k-icon k-i-edit k-i-pencil"></span>
+              </button>
+              <button kendoGridCancelCommand>
+                <span class="k-icon k-i-close-outline k-i-x-outline k-i-error"></span>
+              </button>
+              <div fxFlex="100" fxFlexAlign="start center" style=" padding:5px;">
+                <mat-form-field style="width:50%">
+                  <input matInput placeholder="{{ 'puestoIdOficial' }}"
+                    [formControl]="formGroup.get('puestoIdOficial')">
+                </mat-form-field>
+                <mat-form-field style="width:50%">
+                  <input matInput placeholder="{{ 'Nombre' }}" [formControl]="formGroup.get('nombre')">
+                </mat-form-field>
+                <mat-slide-toggle [checked]="dataItem.disponibilidadPlena"
+                  [formControl]="formGroup.get('disponibilidadPlena')">Disponibilidad
+                </mat-slide-toggle>
+
+
+                <mat-form-field>
+                  <mat-label></mat-label>
+                  <input matInput placeholder="{{ dataItem.fechaVigenciaInicio }}" [matDatepicker]="inicioDatePicker" autocomplete="off" [value]="dataItem.fechaVigenciaInicio" [formControl]="formGroup.get('fechaVigenciaInicio')">
+                  <mat-datepicker-toggle matSuffix [for]="inicioDatePicker">Inicio Fecha</mat-datepicker-toggle>
+                  <mat-datepicker #inicioDatePicker></mat-datepicker>
+              </mat-form-field>
+
+                
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </ng-template>
+
+
     </kendo-grid-column>
 
+
+    <!--VISTA NAVEGADOR -->
     <ng-template kendoGridToolbarTemplate class="k-toolbarRight">
       <div kendoGridAddCommand class="k-icon k-i-plus-circle">
         <span class="k-icon k-i-plus-circle" matTooltip="Añadir nuevo puesto"></span>
@@ -94,14 +131,15 @@
     </kendo-grid-column>
     <kendo-grid-column field="nombre" title="Denominación" width="140" media="md">
     </kendo-grid-column>
-    <kendo-grid-column field="fechaVigenciaInicio" title="Inicio Fecha Vigencia" [width]="400" filter="date" editor="date" media="md">
+    <kendo-grid-column field="fechaVigenciaInicio" title="Inicio Fecha Vigencia" [width]="400" filter="date"
+      editor="date" media="md">
       <ng-template kendoGridCellTemplate let-dataItem>
         {{dataItem.fechaVigenciaInicio | date}}
       </ng-template>
-      
+
     </kendo-grid-column>
-    <kendo-grid-column type="checkbox" field="disponibilidadPlena" title="Disponibilidad" [width]="80" filter="boolean" editor="boolean"
-      media="md">
+    <kendo-grid-column type="checkbox" field="disponibilidadPlena" title="Disponibilidad" [width]="80" filter="boolean"
+      editor="boolean" media="md">
       <ng-template kendoGridCellTemplate let-dataItem>
         <input type="checkbox" [checked]="dataItem.disponibilidadPlena" disabled />
       </ng-template>
