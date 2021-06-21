@@ -1,34 +1,6 @@
 {
   "posts": [
     {
-      "id": 14869,
-      "puestoId": "00003",
-      "puestoIdOficial": null,
-      "tipoVinculoNombre": null,
-      "nombre": "nombre3",
-      "catalogoNombre": null,
-      "adscripcionNombre": null,
-      "grupo1Id": null,
-      "grupo2Id": null,
-      "escalaNombre": null,
-      "disponibilidadPlena": false,
-      "fechaVigenciaInicio": "2018-12-31T23:00:00.000Z"
-    },
-    {
-      "id": 14874,
-      "puestoId": "00008",
-      "puestoIdOficial": null,
-      "tipoVinculoNombre": null,
-      "nombre": "Chofer edit",
-      "catalogoNombre": null,
-      "adscripcionNombre": null,
-      "grupo1Id": "01",
-      "grupo2Id": "3 ",
-      "escalaNombre": null,
-      "disponibilidadPlena": false,
-      "fechaVigenciaInicio": "2018-12-31T23:00:00.000Z"
-    },
-    {
       "adscripcion": {
         "adscripcionId": "A2",
         "id": 2,
@@ -77223,6 +77195,56 @@
       "disponibilidadPlena": null,
       "fechaVigenciaInicio": null,
       "id": 16043
+    },
+    {
+      "puestoId": null,
+      "puestoIdOficial": "00111",
+      "tipoVinculo": {
+        "nombre": null
+      },
+      "puestoTipoNombre": null,
+      "catalogoNombre": null,
+      "adscripcionNombre": null,
+      "grupo1Id": null,
+      "grupo2Id": null,
+      "escalaNombre": null,
+      "disponibilidadPlena": true,
+      "fechaVigenciaInicio": "2021-06-15T22:00:00.000Z",
+      "id": 16044
+    },
+    {
+      "id": 16045,
+      "puestoId": "1",
+      "puestoIdOficial": "1",
+      "tipoVinculo": {
+        "nombre": null
+      },
+      "nombre": "1",
+      "puestoTipoNombre": null,
+      "catalogoNombre": null,
+      "adscripcionNombre": null,
+      "grupo1Id": null,
+      "grupo2Id": null,
+      "escalaNombre": null,
+      "disponibilidadPlena": null,
+      "fechaVigenciaInicio": "2021-06-08T22:00:00.000Z"
+    },
+    {
+      "id": 16046,
+      "puestoId": "123",
+      "puestoIdOficial": "123",
+      "tipoVinculo": {
+        "nombre": "Funcionario"
+      },
+      "nombre": "123",
+      "puestoTipoNombre": null,
+      "catalogoNombre": null,
+      "adscripcionNombre": null,
+      "grupo1Id": null,
+      "grupo2Id": null,
+      "escalaNombre": null,
+      "disponibilidadPlena": true,
+      "fechaVigenciaInicio": "2021-06-14T22:00:00.000Z"
     }
   ],
   "comments": [],

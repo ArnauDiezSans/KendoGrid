@@ -64,19 +64,17 @@
                 <mat-form-field style="width:50%">
                   <input matInput placeholder="{{ 'Nombre' }}" [formControl]="formGroup.get('nombre')">
                 </mat-form-field>
-                <mat-slide-toggle [checked]="dataItem.disponibilidadPlena"
+                <mat-slide-toggle [checked]="dataItem?.disponibilidadPlena"
                   [formControl]="formGroup.get('disponibilidadPlena')">Disponibilidad
                 </mat-slide-toggle>
-
-
                 <mat-form-field>
                   <mat-label></mat-label>
-                  <input matInput placeholder="{{ dataItem.fechaVigenciaInicio }}" [matDatepicker]="inicioDatePicker" autocomplete="off" [value]="dataItem.fechaVigenciaInicio" [formControl]="formGroup.get('fechaVigenciaInicio')">
+                  <input matInput placeholder="{{ dataItem?.fechaVigenciaInicio }}" [matDatepicker]="inicioDatePicker"
+                    autocomplete="off" [value]="dataItem?.fechaVigenciaInicio"
+                    [formControl]="formGroup.get('fechaVigenciaInicio')">
                   <mat-datepicker-toggle matSuffix [for]="inicioDatePicker">Inicio Fecha</mat-datepicker-toggle>
                   <mat-datepicker #inicioDatePicker></mat-datepicker>
-              </mat-form-field>
-
-                
+                </mat-form-field>
               </div>
             </div>
           </mat-card-content>

@@ -97,9 +97,11 @@ export class AppComponent implements OnInit {
     this.closeEditor(sender);
 
     this.formGroup = new FormGroup({
+      id: new FormControl(),
       puestoId: new FormControl(),
       puestoIdOficial: new FormControl(),
       tipoVinculo: new FormGroup({nombre: new FormControl()}),
+      nombre: new FormControl(),
       puestoTipoNombre: new FormControl(),
       catalogoNombre: new FormControl(),
       adscripcionNombre: new FormControl(),
